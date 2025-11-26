@@ -47,7 +47,7 @@ services:
       - lempnet
 
   mysqld-exporter:
-    container_name: mysqld_exporter
+    container_name: mysqld-exporter
     image: prom/mysqld-exporter
     ports:
       - "9104:9104"
