@@ -47,17 +47,18 @@ services:
       - lempnet
 
   mysqld-exporter:
+    container_name: mysqld_exporter
     image: prom/mysqld-exporter
     ports:
       - "9104:9104"
     depends_on:
       - db
     environment:
-      - MYSQLD_EXPORTER_PASSWORD=exporterpass
+      - DATA_SOURCE_NAME=mysqld_exporter:exporterpass@(db:3306)/
     command:
-      - '--mysqld.username=mysqld_exporter'
-      - '--mysqld.password=exporterpass'
-      - '--mysqld.address=db:3306'
+      - '--datasource.user=mysqld_exporter'
+      - '--datasource.pass=exporterpass'
+      - '--datasource.address=db:3306'
     networks:
       - lempnet
 
@@ -90,7 +91,7 @@ services:
     container_name: cadvisor
     restart: unless-stopped
     ports:
-      - "8000:8080"   # UI available on http://localhost:8080
+      - "8080:8080"
     volumes:
       - /:/rootfs:ro
       - /var/run:/var/run:ro

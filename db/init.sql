@@ -7,6 +7,6 @@ CREATE TABLE IF NOT EXISTS emails (
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
-CREATE USER IF NOT EXISTS 'mysqld_exporter'@'%' IDENTIFIED BY 'exporterpass';
-GRANT PROCESS, REPLICATION CLIENT, SELECT ON *.* TO 'mysqld_exporter'@'%';
+CREATE USER 'mysqld_exporter'@'%' IDENTIFIED BY 'exporterpass';
+GRANT PROCESS, REPLICATION CLIENT, SELECT ON *.* TO 'mysqld_exporter';
 FLUSH PRIVILEGES;
