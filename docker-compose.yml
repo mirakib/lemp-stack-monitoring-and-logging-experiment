@@ -46,7 +46,27 @@ services:
     networks:
       - lempnet
 
+  node-exporter:
+    image: prom/node-exporter
+    ports:
+      - "9100:9100"
+    networks:
+      - lempnet
+
+  nginx-exporter:
+    image: nginx/nginx-prometheus-exporter:0.11.0
+    container_name: nginx-exporter
+    depends_on:
+      - nginx
+    environment:
+      - NGINX_STATUS_URL=http://nginx:80/nginx_status
+    ports:
+      - "9113:9113"
+    networks:
+      - lempnet
+
   mysqld-exporter:
+    container_name: mysqld-exporter
     image: prom/mysqld-exporter
     ports:
       - "9104:9104"
