@@ -53,7 +53,10 @@ services:
     depends_on:
       - db
     environment:
-      - DATA_SOURCE_NAME=mysqld_exporter:exporterpass@(db:3306)/
+      - MYSQLD_EXPORTER_PASSWORD=exporterpass
+    command:
+      - '--mysqld.username=mysqld_exporter'
+      - '--mysqld.address=db:3306'
     networks:
       - lempnet
 
