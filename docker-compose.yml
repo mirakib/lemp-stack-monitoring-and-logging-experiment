@@ -60,7 +60,7 @@ services:
     depends_on:
       - nginx
     command:
-      - '--nginx.scrape-uri=http://nginx/stub_status'
+      - '-nginx.scrape-uri=http://nginx/nginx_status'
     ports:
       - "9113:9113"
     networks:
