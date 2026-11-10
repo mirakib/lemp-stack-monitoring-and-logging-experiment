@@ -1,0 +1,132 @@
+[33mcommit b4d534897cbb6db3dbc267b185ba0a18e0737262[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m, [m[1;33mtag: [m[1;33mv1.0.0[m[33m)[m
+Merge: fefbdbe a894be4
+Author: MOSHREKUL ISLAM <45521827+mirakib@users.noreply.github.com>
+Date:   Thu Nov 27 06:18:49 2025 +0600
+
+    Merge pull request #1 from mirakib/refactor/monitoring-logging
+    
+    Monitoring and Logging Added.
+
+[33mcommit a894be4774bcc97b59ef00354eab47dccabcc67f[m[33m ([m[1;31morigin/refactor/monitoring-logging[m[33m)[m
+Author: Moshrekul Islam <arakibkhan003@gmail.com>
+Date:   Thu Nov 27 06:16:45 2025 +0600
+
+    STABLE COMMIT: Add images and update README with setup and screenshots
+    
+    Added several PNG images for monitoring tools and updated the README with setup instructions, feature highlights, and screenshots to improve project documentation and usability.
+
+[33mcommit 6e46f0294467d138db9eef1cff81ca631fe4dc03[m
+Author: Moshrekul Islam <arakibkhan003@gmail.com>
+Date:   Thu Nov 27 05:31:57 2025 +0600
+
+    Remove deprecated Grafana dashboard JSON files
+    
+    Deleted multiple dashboard JSON files from grafana/provisioning/dashboards_files, including Cadvisor exporter, Docker and system monitoring, Docker overview, MariaDB Workload, Node Exporter Dashboard, and cAdvisor Docker Insights. These dashboards are no longer needed or have been replaced.
+
+[33mcommit 370de6781cc3e2ed3168bd151928cdf7ab12e130[m
+Author: Moshrekul Islam <arakibkhan003@gmail.com>
+Date:   Thu Nov 27 05:20:29 2025 +0600
+
+    Update nginx status endpoint and clean up config
+    
+    Changed Prometheus Nginx Exporter scrape URI in docker-compose.yml to /nginx_status. Cleaned up nginx/default.conf by removing redundant comments and duplicate PHP location block, and improved the /nginx_status location for clarity.
+
+[33mcommit b1945355f5819a918bbf8b37c7d046d402c77c79[m
+Author: Moshrekul Islam <arakibkhan003@gmail.com>
+Date:   Thu Nov 27 05:11:47 2025 +0600
+
+    Add container name and update PHP handling in configs
+    
+    Set explicit container_name for node-exporter in docker-compose.yml. Updated nginx/default.conf to add an example PHP handling block with SCRIPT_FILENAME parameter for improved PHP file processing.
+
+[33mcommit a9a401ebcf2fb55fcc8da66c7c60f69cda66773e[m
+Author: Moshrekul Islam <arakibkhan003@gmail.com>
+Date:   Thu Nov 27 05:06:51 2025 +0600
+
+    Update nginx exporter config and stub_status location
+    
+    Changed nginx-exporter to use the '--nginx.scrape-uri' command argument instead of the NGINX_STATUS_URL environment variable in docker-compose.yml. Moved the /nginx_status stub_status location in nginx/default.conf to be outside the commented block and clarified its placement.
+
+[33mcommit 9502264f249264322a47b9922114d4887bbad40c[m
+Author: Moshrekul Islam <arakibkhan003@gmail.com>
+Date:   Thu Nov 27 04:56:02 2025 +0600
+
+    Add Grafana dashboards for Docker and system monitoring
+    
+    Added multiple Grafana dashboard JSON files for monitoring Docker, system metrics, and cAdvisor insights. These dashboards provide visualizations for CPU, memory, disk, network, and container-level metrics using Prometheus as a datasource.
+
+[33mcommit ee45c6f09644add4396e985a2ad6db23984b55d4[m
+Author: Moshrekul Islam <arakibkhan003@gmail.com>
+Date:   Thu Nov 27 04:46:58 2025 +0600
+
+    Add Prometheus exporters for NGINX and node metrics
+    
+    Added node-exporter and nginx-exporter services to docker-compose for system and NGINX metrics. Updated NGINX config to expose /nginx_status for Prometheus scraping. Extended Prometheus configuration to scrape metrics from the new exporters.
+
+[33mcommit 232002bf6531063a333e67737082cfb0e44a3d4b[m
+Author: Moshrekul Islam <arakibkhan003@gmail.com>
+Date:   Thu Nov 27 04:41:48 2025 +0600
+
+    Add and update Grafana dashboard files
+    
+    Added new dashboards for Cadvisor exporter and MariaDB Workload. Renamed 'mysql.json' to 'MySQL Exporter.json' and removed the obsolete 'loki.json' dashboard.
+
+[33mcommit 1e9e8b0ab536dea5eee79300c6f9f14e67d54259[m
+Author: Moshrekul Islam <arakibkhan003@gmail.com>
+Date:   Thu Nov 27 04:20:11 2025 +0600
+
+    Update mysqld-exporter config and docker-compose setup
+    
+    Refactors mysqld-exporter service in docker-compose.yml to use explicit environment variables and command arguments for username and address. Adds a .my.cnf file for mysqld-exporter with connection credentials.
+
+[33mcommit ba166f80077d78b5aaa310ec5c6ad7daf38a9216[m
+Author: Moshrekul Islam <arakibkhan003@gmail.com>
+Date:   Thu Nov 27 04:13:00 2025 +0600
+
+    Remove redundant mysqld-exporter config in compose file
+    
+    Eliminated the container_name and command fields from the mysqld-exporter service in docker-compose.yml, relying on environment variables for configuration.
+
+[33mcommit 567000a4b149b7a9d62b5dc60fb8476c0e6e2f0c[m
+Author: Moshrekul Islam <arakibkhan003@gmail.com>
+Date:   Thu Nov 27 04:06:29 2025 +0600
+
+    Fix container name for mysqld-exporter service
+    
+    Renamed the mysqld-exporter service's container_name from 'mysqld_exporter' to 'mysqld-exporter' in docker-compose.yml for consistency.
+
+[33mcommit 0cdeef09bd375ce43456e11acf830db591e88403[m
+Author: Moshrekul Islam <arakibkhan003@gmail.com>
+Date:   Thu Nov 27 03:52:34 2025 +0600
+
+    Update exporter configs and dashboard paths
+    
+    Changed mysqld-exporter configuration in docker-compose.yml to use DATA_SOURCE_NAME and updated command arguments. Fixed SQL user grant in db/init.sql. Changed cAdvisor and app host ports to 8080 and 80, respectively. Renamed Grafana dashboard files to dashboards_files directory. Updated Prometheus config to match new cAdvisor port.
+
+[33mcommit a9222f9388618042fc3113671669778b0d15f559[m
+Author: Moshrekul Islam <arakibkhan003@gmail.com>
+Date:   Thu Nov 27 03:03:00 2025 +0600
+
+    Add monitoring stack with Prometheus, Grafana, Loki
+    
+    Integrates Prometheus, Grafana, Loki, Promtail, cAdvisor, and mysqld-exporter into docker-compose for monitoring and observability. Adds provisioning for Grafana dashboards and datasources, Prometheus and Promtail configuration, and updates environment and database initialization for exporter access.
+
+[33mcommit fefbdbe60cd03c527f569082fd7c6e8a2c5f7423[m
+Author: Moshrekul Islam <arakibkhan003@gmail.com>
+Date:   Thu Nov 27 00:07:08 2025 +0600
+
+    Add initial LEMP CRUD app with Docker setup
+
+[33mcommit 9345fba49258984d86527c1484e709427bda32d9[m
+Author: MOSHREKUL ISLAM <45521827+mirakib@users.noreply.github.com>
+Date:   Wed Nov 26 23:59:32 2025 +0600
+
+    Enhance README with detailed project overview
+    
+    Expanded project description to detail architecture and components.
+
+[33mcommit d1a87b317ddea852c904e9187c324c785da988a7[m
+Author: MOSHREKUL ISLAM <45521827+mirakib@users.noreply.github.com>
+Date:   Wed Nov 26 23:57:28 2025 +0600
+
+    Initial commit
