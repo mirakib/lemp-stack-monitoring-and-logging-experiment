@@ -1,0 +1,4 @@
+.env
+
+alertmanager/alertmanager.yml
+alertmanager/secrets/smtp_password

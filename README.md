@@ -39,14 +39,34 @@ This project demonstrates a production-grade strategy for achieving full observa
     ```bash
     cd lemp-stack-monitoring-and-logging-experiment
     ```
-3. **Start the Docker Containers**:
+3. **Configure environment and email alerts**:
+   ```bash
+   cp .env.example .env
+   cp alertmanager/alertmanager.yml.example alertmanager/alertmanager.yml
+   mkdir -p alertmanager/secrets
+   ```
+   Set the database and Grafana passwords in `.env`. Configure your SMTP server,
+   sender, SMTP username, and recipient in `alertmanager/alertmanager.yml`.
+   Create `alertmanager/secrets/smtp_password` containing only your SMTP password;
+   for example, replace the placeholder below with your SMTP password:
+   ```bash
+   printf '%s' 'YOUR_SMTP_PASSWORD' > alertmanager/secrets/smtp_password
+   ```
+   This file is mounted as a Docker secret and is not stored in Git. Do not put
+   your SMTP password or email address in Compose environment variables.
+
+   Prometheus sends an email when the host CPU usage measured by Node Exporter
+   stays above 80% for 5 minutes. Adjust the SMTP values and recipient before
+   starting the stack.
+4. **Start the Docker Containers**:
    ```bash
    docker-compose up -d
    ```
-4. **Access the Services**:
+5. **Access the Services**:
    - LEMP Application: `http://localhost:80`
    - Grafana Dashboard: `http://localhost:3000` (credentials: Look in the .env file)
    - Prometheus UI: `http://localhost:9090`
+   - Alertmanager: `http://localhost:9093`
    - Loki UI: `http://localhost:3100`
    - cAdvisor UI: `http://localhost:8081`
 
