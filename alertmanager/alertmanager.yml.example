@@ -1,7 +1,7 @@
 global:
-  smtp_smarthost: "smtp.gmail.com:587"
-  smtp_from: "your-gmail@gmail.com"
-  smtp_auth_username: "your-gmail@gmail.com"
+  smtp_smarthost: "smtp.example.com:587"
+  smtp_from: "alerts@example.com"
+  smtp_auth_username: "your-smtp-username"
   smtp_auth_password_file: /run/secrets/smtp_password
   smtp_require_tls: true
 
@@ -19,5 +19,5 @@ route:
 receivers:
   - name: cpu-email
     email_configs:
-      - to: "recipient@gmail.com"
+      - to: "your-email@example.com"
         send_resolved: true
