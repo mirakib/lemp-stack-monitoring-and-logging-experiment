@@ -92,6 +92,7 @@ services:
       - lempnet
     volumes:
       - loki_data:/loki
+      - ./loki/local-config.yaml:/etc/loki/local-config.yaml:ro
 
   promtail:
     image: grafana/promtail:2.9.0
@@ -131,6 +132,7 @@ services:
     volumes:
       - ./grafana/provisioning:/etc/grafana/provisioning
       - grafana_data:/var/lib/grafana
+      - ./grafana/grafana.ini:/etc/grafana/grafana.ini:ro
     depends_on:
       - prometheus
       - loki
@@ -143,10 +145,30 @@ services:
     restart: unless-stopped
     volumes:
       - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml:ro
+      - ./prometheus/alerts.yml:/etc/prometheus/alerts.yml:ro
     ports:
       - "9090:9090"
+    depends_on:
+      - alertmanager
     networks:
       - lempnet
+
+  alertmanager:
+    image: prom/alertmanager:latest
+    container_name: alertmanager
+    restart: unless-stopped
+    volumes:
+      - ./alertmanager/alertmanager.yml:/etc/alertmanager/alertmanager.yml:ro
+    secrets:
+      - smtp_password
+    ports:
+      - "9093:9093"
+    networks:
+      - lempnet
+
+secrets:
+  smtp_password:
+    file: ./alertmanager/secrets/smtp_password
 
 volumes:
   db_data:
@@ -160,4 +182,3 @@ networks:
   lempnet:
     name: lempnet
     driver: bridge
-
