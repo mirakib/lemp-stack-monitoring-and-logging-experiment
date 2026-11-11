@@ -1,0 +1,12 @@
+apiVersion: 1
+
+contactPoints:
+  - orgId: 1
+    name: lemp-email
+    receivers:
+      - uid: lemp_email_receiver
+        type: email
+        settings:
+          addresses: mirakib.dev@gmail.com
+          singleEmail: false
+        disableResolveMessage: false
